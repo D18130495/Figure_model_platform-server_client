@@ -22,6 +22,11 @@
           {{ scope.row.status === 1 ? 'able' : 'disable' }}
         </template>
       </el-table-column>
+      <el-table-column label="Delete">
+        <template slot-scope="scope">
+          <el-button type="danger" icon="el-icon-delete" @click="removeCompanySetById(scope.row.id)" />
+        </template>
+      </el-table-column>
     </el-table>
     <!-- pagination -->
     <el-pagination
@@ -58,11 +63,34 @@ export default {
         .then(response => {
           this.list = response.data.records
           this.total = response.data.total
-          console.log(this.list)
         })
         .catch(error => {
           console.log(error)
         })
+    },
+    removeCompanySetById(id) {
+      this.$confirm('You will permanently delete this company information?', 'Inform', {
+        confirmButtonText: 'Continue',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then(() => {
+        companySet.deleteCompanySetById(id)
+          .then(response => {
+            this.$message({
+              type: 'success',
+              message: 'Successfully deleted'
+            })
+            this.getList(1)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Delete cancelled'
+        })
+      })
     }
   }
 }

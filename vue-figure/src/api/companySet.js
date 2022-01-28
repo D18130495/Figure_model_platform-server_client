@@ -7,5 +7,11 @@ export default {
       method: 'post',
       data: searchObj
     })
+  },
+  deleteCompanySetById(id) {
+    return request({
+      url: `/admin/comp/companySet/delete/${id}`,
+      method: 'delete'
+    })
   }
 }
