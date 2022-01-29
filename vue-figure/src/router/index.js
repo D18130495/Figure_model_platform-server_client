@@ -85,6 +85,23 @@ export const constantRoutes = [
   },
 
   {
+    path: '/dict',
+    component: Layout,
+    redirect: '/dict/list',
+    name: 'Data Manage',
+    alwaysShow: true,
+    meta: { title: 'Data Manage', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: 'Data List',
+        component: () => import('@/views/dict/list'),
+        meta: { title: 'Data List', icon: 'table' }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [
