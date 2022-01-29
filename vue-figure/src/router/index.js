@@ -73,6 +73,13 @@ export const constantRoutes = [
         name: 'Company Add',
         component: () => import('@/views/companySet/add'),
         meta: { title: 'Company Add', icon: 'tree' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'Company Edit',
+        component: () => import('@/views/companySet/add'),
+        meta: { title: 'Company Edit', icon: 'tree' },
+        hidden: true
       }
     ]
   },
