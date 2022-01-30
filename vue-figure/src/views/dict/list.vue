@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <el-button type="primary" @click="exportData">Data export</el-button>
     <el-table
       :data="dictList"
       :load="getChildrens"
@@ -7,6 +8,7 @@
       row-key="id"
       border
       lazy
+      style="margin-top: 20px;"
     >
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="id" label="ID" />
@@ -30,6 +32,7 @@ export default {
     this.getDictList(1)
   },
   methods: {
+    // get dict data list
     getDictList(id) {
       dict.getDictList(id)
         .then(response => {
@@ -40,11 +43,16 @@ export default {
           console.log(error)
         })
     },
+    // get the children dict data list if has children
     getChildrens(tree, treeNode, reslove) {
       dict.getDictList(tree.id)
         .then(response => {
           reslove(response.data)
         })
+    },
+    // export the dict data
+    exportData() {
+      window.location.href = 'http://localhost:8022/admin/cmn/dict/exportData'
     }
   }
 }
