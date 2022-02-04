@@ -29,8 +29,8 @@
       <el-table-column label="Operation" align="center">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeCompanySetById(scope.row.id)" />
-          <el-button v-if="scope.row.status === 0" type="success" size="mini" icon="el-icon-circle-plus" @click="lockOrUnlockCompanySetById(scope.row.id, 1)" />
-          <el-button v-if="scope.row.status === 1" type="info" size="mini" icon="el-icon-remove" @click="lockOrUnlockCompanySetById(scope.row.id, 0)" />
+          <el-button v-if="scope.row.status === 0" type="success" size="mini" icon="el-icon-circle-plus" @click="lockOrUnlockCompanySetById(scope.row.id, scope.row.compCode, 1)" />
+          <el-button v-if="scope.row.status === 1" type="info" size="mini" icon="el-icon-remove" @click="lockOrUnlockCompanySetById(scope.row.id, scope.row.compCode, 0)" />
           <router-link :to="'/companySet/edit/' + scope.row.id" style="padding-left: 10px;">
             <el-button type="primary" size="mini" icon="el-icon-edit-outline" />
           </router-link>
@@ -134,8 +134,8 @@ export default {
     selectionChange(selection) {
       this.batchDeleteSelectionList = selection
     },
-    lockOrUnlockCompanySetById(id, status) {
-      companySet.lockOrUnlockCompanySetById(id, status)
+    lockOrUnlockCompanySetById(id, compCode, status) {
+      companySet.lockOrUnlockCompanySetById(id, compCode, status)
         .then(response => {
           this.$message({
             type: 'success',

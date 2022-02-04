@@ -59,6 +59,7 @@ export const constantRoutes = [
     path: '/companySet',
     component: Layout,
     redirect: '/companySet/list',
+    alwaysShow: true,
     name: 'Company Manage',
     meta: { title: 'Company Manage', icon: 'el-icon-s-help' },
     children: [
@@ -79,6 +80,30 @@ export const constantRoutes = [
         name: 'Company Edit',
         component: () => import('@/views/companySet/add'),
         meta: { title: 'Company Edit', icon: 'tree' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/company',
+    component: Layout,
+    redirect: '/company/list',
+    alwaysShow: true,
+    name: 'Company Detail',
+    meta: { title: 'Company Manage', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: 'Company List 2',
+        component: () => import('@/views/company/list'),
+        meta: { title: 'Company Detail', icon: 'table' }
+      },
+      {
+        path: 'show/:id',
+        name: 'Show Company Detail',
+        component: () => import('@/views/company/show'),
+        meta: { title: 'Show Company Detail', icon: 'tree' },
         hidden: true
       }
     ]

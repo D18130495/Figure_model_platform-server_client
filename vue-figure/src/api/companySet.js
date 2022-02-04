@@ -32,9 +32,9 @@ export default {
     })
   },
   // lock or unlock the company
-  lockOrUnlockCompanySetById(id, status) {
+  lockOrUnlockCompanySetById(id, compCode, status) {
     return request({
-      url: `/admin/comp/companySet/lockOrUnlockCompanySet/${id}/${status}`,
+      url: `/admin/comp/companySet/lockOrUnlockCompanySet/${id}/${compCode}/${status}`,
       method: 'put'
     })
   },

@@ -23,7 +23,8 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-upload" type="primary" @click="saveOrUpdate">Add</el-button>
+        <el-button v-if="companyId === 0" icon="el-icon-upload" type="primary" @click="saveOrUpdate">Add</el-button>
+        <el-button v-if="companyId !== 0" icon="el-icon-upload" type="primary" @click="saveOrUpdate">Update</el-button>
       </el-form-item>
     </el-form>
   </div>
