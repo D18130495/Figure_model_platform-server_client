@@ -12,7 +12,7 @@
     >
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="id" label="ID" />
-      <el-table-column prop="parentId" label="Belong" />
+      <el-table-column prop="value" label="Value" />
       <el-table-column prop="dictCode" label="Desc" />
       <el-table-column prop="createTime" label="Create time" />
     </el-table>

@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table :data="list" style="width: 100%" border @selection-change="selectionChange">
+    <el-table :data="list" style="width: 100%" border>
       <el-table-column type="index" label="ID" />
       <el-table-column label="Company LOGO" align="center" width="200">
         <template slot-scope="scope">
@@ -57,7 +57,6 @@ export default {
         .then(response => {
           this.list = response.data.content
           this.total = response.data.totalElements
-          console.log(response.data.content)
         })
         .catch(error => {
           console.log(error)
