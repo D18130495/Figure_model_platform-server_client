@@ -35,21 +35,21 @@
           <!-- <i class="el-icon-mobile-phone" /> -->
           Company type
         </template>
-        {{ companyDetail.companyType }}
+        {{ companyDetail.param.companyType }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <!-- <i class="el-icon-mobile-phone" /> -->
-          City code
+          City
         </template>
-        {{ companyDetail.cityCode }}
+        {{ companyDetail.param.city }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <!-- <i class="el-icon-mobile-phone" /> -->
-          Country code
+          Country
         </template>
-        {{ companyDetail.countryCode }}
+        {{ companyDetail.param.country }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
@@ -100,8 +100,8 @@ export default {
     showCompanyDetail() {
       company.getCompanyDetail(this.companyId)
         .then(respone => {
-          this.companyDetail = respone.data
-          console.log(this.companyDetail)
+          this.companyDetail = respone.data.company
+          console.log(this.companyDetail.param)
         })
         .catch(error => {
           console.log(error)

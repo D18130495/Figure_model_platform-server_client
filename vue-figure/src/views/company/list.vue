@@ -15,10 +15,13 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="Create time" align="center" />
-      <el-table-column label="Operation" width="100" align="center">
+      <el-table-column label="Operation" width="140" align="center">
         <template slot-scope="scope">
           <router-link :to="'/company/show/'+scope.row.id">
             <el-button type="primary" size="mini" icon="el-icon-info" />
+          </router-link>
+          <router-link :to="'/company/series/'+scope.row.companyCode" style="padding-left: 10px">
+            <el-button type="primary" size="mini" icon="el-icon-s-tools" />
           </router-link>
         </template>
       </el-table-column>

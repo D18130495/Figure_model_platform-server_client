@@ -105,6 +105,13 @@ export const constantRoutes = [
         component: () => import('@/views/company/show'),
         meta: { title: 'Show Company Detail', icon: 'tree' },
         hidden: true
+      },
+      {
+        path: 'series/:companyCode',
+        name: 'Show series figure spec',
+        component: () => import('@/views/company/series'),
+        meta: { title: 'Show series figure spec', icon: 'tree' },
+        hidden: true
       }
     ]
   },

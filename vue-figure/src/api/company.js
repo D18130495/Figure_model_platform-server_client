@@ -14,5 +14,11 @@ export default {
       url: `/admin/comp/company/showCompanyDetail/${id}`,
       method: 'get'
     })
+  },
+  getSeriesByCompanyCode(companyCode) {
+    return request({
+      url: `/admin/comp/series/getSeries/${companyCode}`,
+      method: 'get'
+    })
   }
 }
