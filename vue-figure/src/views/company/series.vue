@@ -1,16 +1,31 @@
 <template>
   <div class="app-container">
-    <div style="margin-bottom: 10px; font-size: 10px;">Choose: </div>
+    <div style="margin-bottom: 10px; font-size: 10px;">Choose:
+      {{ seriesName }} / {{ orderDate }}
+    </div>
     <el-container style="height: 100%">
       <el-aside width="200px" style="border: 1px silver solid">
         <el-tree
           :data="data"
           :props="defaultProps"
           :default-expand-all="true"
-        /><!-- @node-click="handleNodeClick" -->
+          @node-click="handleNodeClick"
+        />
       </el-aside>
       <el-main style="padding: 0 0 0 20px;">
         <el-row style="width: 100%;" />
+        <el-tag v-for="(item,index) in orderScheduleList" :key="item.id" :type="index == activeIndex? '' : 'info'" style="height: 60px; margin-right: 10px" @click="selectDate(item.orderDate, index)">
+          {{ item.orderDate }} / {{ item.dayOfWeek }}<br>
+          {{ item.reservedNumber }} / {{ item.availableNumber }}
+        </el-tag>
+        <el-pagination
+          :current-page="current"
+          :total="total"
+          :page-size="limit"
+          class="pagination"
+          layout="prev, pager, next"
+          @current-change="getPage"
+        />
         <el-row style="margin-top: 20px;" />
       </el-main>
     </el-container>
@@ -28,7 +43,15 @@ export default {
         children: 'children',
         label: 'seriesName'
       },
-      companyCode: ''
+      companyCode: '',
+      seriesName: '',
+      seriesCode: '',
+      activeIndex: 0,
+      orderDate: '',
+      orderScheduleList: [],
+      current: 1,
+      limit: 2,
+      total: 0
     }
   },
   created() {
@@ -40,11 +63,40 @@ export default {
       company.getSeriesByCompanyCode(this.companyCode)
         .then(response => {
           this.data = response.data
-          console.log(response.data)
         })
         .catch(error => {
           console.log(error)
         })
+    },
+    handleNodeClick(data) {
+      if (data.children != null) return
+      this.seriesName = data.seriesName
+      this.seriesCode = data.seriesCode
+      this.orderDate = ''
+      this.getPage(1)
+    },
+    getPage(current) {
+      this.activeIndex = 0
+      this.current = current
+      this.getSchedule()
+    },
+    getSchedule() {
+      company.getSchedule(this.current - 1, this.limit, this.companyCode, this.seriesCode)
+        .then(response => {
+          this.orderScheduleList = response.data.bookingScheduleRule
+          this.total = response.data.total
+          if (this.orderDate === '') {
+            this.orderDate = this.orderScheduleList[0].orderDate
+          }
+          console.log(this.orderDate)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    selectDate(orderDate, index) {
+      this.orderDate = orderDate
+      this.activeIndex = index
     }
   }
 }

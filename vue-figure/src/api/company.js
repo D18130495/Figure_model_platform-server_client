@@ -20,5 +20,11 @@ export default {
       url: `/admin/comp/series/getSeries/${companyCode}`,
       method: 'get'
     })
+  },
+  getSchedule(current, limit, companyCode, seriesCode) {
+    return request({
+      url: `/admin/comp/schedule/getFigureSchedule/${current}/${limit}/${companyCode}/${seriesCode}`,
+      method: 'get'
+    })
   }
 }
