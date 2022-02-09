@@ -26,5 +26,11 @@ export default {
       url: `/admin/comp/schedule/getFigureSchedule/${current}/${limit}/${companyCode}/${seriesCode}`,
       method: 'get'
     })
+  },
+  getScheduleDetail(companyCode, seriesCode, orderDate) {
+    return request({
+      url: `/admin/comp/schedule/getFigureDetails/${companyCode}/${seriesCode}/${orderDate}`,
+      method: 'get'
+    })
   }
 }

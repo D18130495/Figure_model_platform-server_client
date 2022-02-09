@@ -13,20 +13,35 @@
         />
       </el-aside>
       <el-main style="padding: 0 0 0 20px;">
-        <el-row style="width: 100%;" />
-        <el-tag v-for="(item,index) in orderScheduleList" :key="item.id" :type="index == activeIndex? '' : 'info'" style="height: 60px; margin-right: 10px" @click="selectDate(item.orderDate, index)">
-          {{ item.orderDate }} / {{ item.dayOfWeek }}<br>
-          {{ item.reservedNumber }} / {{ item.availableNumber }}
-        </el-tag>
-        <el-pagination
-          :current-page="current"
-          :total="total"
-          :page-size="limit"
-          class="pagination"
-          layout="prev, pager, next"
-          @current-change="getPage"
-        />
-        <el-row style="margin-top: 20px;" />
+        <el-row style="width: 100%;">
+          <el-tag v-for="(item,index) in orderScheduleList" :key="item.id" :type="index == activeIndex? '' : 'info'" style="height: 60px; margin-right: 10px" @click="selectDate(item.orderDate, index)">
+            {{ item.orderDate }} / {{ item.dayOfWeek }}<br>
+            {{ item.reservedNumber }} / {{ item.availableNumber }}
+          </el-tag>
+          <el-pagination
+            :current-page="current"
+            :total="total"
+            :page-size="limit"
+            class="pagination"
+            layout="prev, pager, next"
+            @current-change="getPage"
+          />
+        </el-row>
+        <el-row style="margin-top: 20px;">
+          <el-table :data="scheduleList" style="width: 100%" border highlight-current-row>
+            <el-table-column label="Index" width="60" align="center" border fit highlight-current-row>
+              <template slot-scope="scope">
+                {{ scope.$index + 1 }}
+              </template>
+            </el-table-column>
+            <el-table-column prop="figureName" label="Figure Name" width="350" align="center" />
+            <el-table-column prop="orderDate" label="Order Date" width="200" align="center" />
+            <el-table-column prop="reservedNumber" label="Reserved Number" width="155" align="center" />
+            <el-table-column prop="availableNumber" label="Available Number" width="155" align="center" />
+            <el-table-column prop="preorderFee" label="Pro-order Fee" width="155" align="center" />
+            <el-table-column prop="preorderFee" label="Total Fee" align="center" />
+          </el-table>
+        </el-row>
       </el-main>
     </el-container>
   </div>
@@ -51,7 +66,8 @@ export default {
       orderScheduleList: [],
       current: 1,
       limit: 2,
-      total: 0
+      total: 0,
+      scheduleList: []
     }
   },
   created() {
@@ -87,8 +103,8 @@ export default {
           this.total = response.data.total
           if (this.orderDate === '') {
             this.orderDate = this.orderScheduleList[0].orderDate
+            this.getScheduleDetail()
           }
-          console.log(this.orderDate)
         })
         .catch(error => {
           console.log(error)
@@ -97,6 +113,17 @@ export default {
     selectDate(orderDate, index) {
       this.orderDate = orderDate
       this.activeIndex = index
+      this.getScheduleDetail()
+    },
+    getScheduleDetail() {
+      company.getScheduleDetail(this.companyCode, this.seriesCode, this.orderDate)
+        .then(response => {
+          this.scheduleList = response.data
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
