@@ -116,6 +116,25 @@ export default {
     resetData() {
       this.searchObj = {}
       this.getUserList()
+    },
+    lock(id, status) {
+      this.$confirm("Are you sure to do this operation?", "Inform", {
+        confirmButtonText: "Sure",
+        cancelButtonText: "Cancel",
+        type: "warning",
+      })
+        .then(() => {
+          return userInfoApi.lockOrUnlock(id, status)
+        })
+        .then(response => {
+          this.getUserList(this.current)
+          if (response.code) {
+            this.$message({
+              type: "success",
+              message: "success!",
+            })
+          }
+        })
     }
   }
 }

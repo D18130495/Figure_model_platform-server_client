@@ -8,5 +8,11 @@ export default {
       method: 'get',
       params: searchObj
     })
+  },
+  lockOrUnlock(userId, status) {
+    return request({
+        url: `/admin/user/lockOrUnlock/${userId}/${status}`,
+        method: 'put'
+    })
   }
 }
