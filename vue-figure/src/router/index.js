@@ -134,6 +134,23 @@ export const constantRoutes = [
   },
 
   {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/userInfo/list',
+    alwaysShow: true,
+    name: 'userInfo',
+    meta: { title: 'User', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: '/userInfo/list',
+        name: 'User List',
+        component: () => import('@/views/user/userInfo/list'),
+        meta: { title: 'User List', icon: 'table' }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [

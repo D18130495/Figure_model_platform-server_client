@@ -46,17 +46,19 @@ export default {
     return {
       current: 0,
       limit: 3,
+      query: 0,
       total: 0,
       searchObj: {},
       list: []
     }
   },
   created() {
-    this.getList()
+    this.getList(1)
   },
   methods: {
-    getList() {
-      company.getCompanyList(this.current, this.limit, this.searchObj)
+    getList(val) {
+      this.query = val - 1
+      company.getCompanyList(this.query, this.limit, this.searchObj)
         .then(response => {
           this.list = response.data.content
           this.total = response.data.totalElements
